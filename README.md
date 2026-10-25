@@ -11,15 +11,15 @@ It compares three ranking approaches and measures them with NDCG@10:
 
 ## Results
 
-<!-- Paste the table from results/results.md here after you run evaluate.py. Do not edit the numbers. -->
+Evaluated on all 480 labeled queries (42,994 products, 233,448 human judgments), `all-MiniLM-L6-v2` embeddings, CPU only.
 
 | Method | NDCG@10 | Precision@10 | Avg latency (ms/query) |
 |---|---|---|---|
-| BM25 (keyword) | TBD | TBD | TBD |
-| Dense (embeddings) | TBD | TBD | TBD |
-| Hybrid (RRF) | TBD | TBD | TBD |
+| BM25 (keyword) | 0.654 | 0.752 | 11.9 |
+| Dense (embeddings) | 0.658 | 0.781 | 13.5 |
+| Hybrid (RRF) | 0.707 | 0.815 | 27.3 |
 
-**What I found:** TBD (one or two sentences: which method won, on which kinds of queries, and why you think so).
+**What I found:** Hybrid Reciprocal Rank Fusion was the best method, improving NDCG@10 by 0.053 over BM25 (about 8% relative) and by 0.049 over dense retrieval alone, and Precision@10 from 0.752 to 0.815. Dense retrieval on its own was close to BM25 on NDCG (0.658 vs 0.654), with a higher Precision@10, so neither single method dominates. Fusing them helps, which suggests they retrieve different relevant products. The cost is latency: hybrid runs both retrievers, so it takes about twice as long per query (27 ms vs 12 to 14 ms). I have not yet broken results down by query type or tested significance, so I do not claim why each method wins on specific queries.
 
 ## Setup
 
